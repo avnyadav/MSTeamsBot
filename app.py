@@ -77,10 +77,12 @@ async def messages(req: Request) -> Response:
         return json_response(data=response.body, status=response.status)
     return Response(status=HTTPStatus.OK)
 
+async def test(req: Request) -> Response:
+    return json_response(data="I am working",status=HTTPStatus.OK)
 
 app = web.Application(middlewares=[aiohttp_error_middleware])
 app.router.add_post("/api/messages", messages)
-
+app.router.add_get("/api/tests",test)
 if __name__ == "__main__":
     try:
         web.run_app(app, host=CONFIG.HOST, port=CONFIG.PORT)

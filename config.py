@@ -10,7 +10,7 @@ load_dotenv()
 
 class DefaultConfig:
     """ Bot Configuration """
-    HOST = os.environ.get("HOST","")
-    PORT = os.environ.get("PORT", "")
+    HOST = os.environ.get("HOST","localhost")
+    PORT = os.environ.get("PORT", "8080")
     APP_ID = os.environ.get("MicrosoftAppId", "")
     APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "")
