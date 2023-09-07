@@ -5,7 +5,7 @@ import sys
 import traceback
 from datetime import datetime
 from http import HTTPStatus
-
+import logging
 from aiohttp import web
 from aiohttp.web import Request, Response, json_response
 from botbuilder.core import (
@@ -64,6 +64,7 @@ BOT = EchoBot()
 # Listen for incoming requests on /api/messages
 async def messages(req: Request) -> Response:
     # Main bot message handler.
+    logging.info("api/messages api called.")
     if "application/json" in req.headers["Content-Type"]:
         body = await req.json()
     else:
@@ -78,13 +79,15 @@ async def messages(req: Request) -> Response:
     return Response(status=HTTPStatus.OK)
 
 async def test(req: Request) -> Response:
+    logging.info("api/tests api called.")
     return json_response(data="I am working",status=HTTPStatus.OK)
 
-app = web.Application(middlewares=[aiohttp_error_middleware])
-app.router.add_post("/api/messages", messages)
-app.router.add_get("/api/tests",test)
+APP = web.Application(middlewares=[aiohttp_error_middleware])
+APP.router.add_post("/api/messages", messages)
+APP.router.add_get("/api/tests",test)
+APP.router.add_get("/",test)
 if __name__ == "__main__":
     try:
-        web.run_app(app, host=CONFIG.HOST, port=CONFIG.PORT)
+        web.run_app(APP, host=CONFIG.HOST, port=CONFIG.PORT)
     except Exception as error:
         raise error
