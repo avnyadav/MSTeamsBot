@@ -4,5 +4,5 @@ WORKDIR /app
 COPY . /app 
 RUN pip install -r requirements.txt
 EXPOSE $PORT
-CMD gunicorn app:app --bind 0.0.0.0:$PORT --worker-class aiohttp.GunicornWebWorker
+CMD ["python3", "app.py"]
 
