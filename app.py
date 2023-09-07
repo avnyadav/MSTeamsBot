@@ -82,7 +82,16 @@ async def messages(req: Request) -> Response:
 
 async def test(req: Request) -> Response:
     logging.info("api/tests api called.")
-    return json_response(data="I am working",status=HTTPStatus.OK)
+    #return json_response(data="I am working",status=HTTPStatus.OK)
+    return web.Response(
+        text=f"""
+    <body>
+    <h1>This is a bot<h1>
+        <iframe src='https://webchat.botframework.com/embed/bot-handle-epam?s={CONFIG.WEB_CHAT_SECRET}' 
+         style='min-width: 400px; width: 100%; min-height: 500px;'></iframe>
+    </body>
+</html>""",
+        content_type='text/html')
 
 APP = web.Application(middlewares=[aiohttp_error_middleware])
 APP.router.add_post("/api/messages", messages)

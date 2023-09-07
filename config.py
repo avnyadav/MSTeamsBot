@@ -14,3 +14,4 @@ class DefaultConfig:
     PORT = os.environ.get("PORT", "8080")
     APP_ID = os.environ.get("MicrosoftAppId", "")
     APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "")
+    WEB_CHAT_SECRET= os.environ.get("WebChatSecret","")
